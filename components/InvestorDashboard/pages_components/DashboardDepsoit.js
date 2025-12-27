@@ -28,7 +28,7 @@ const DashboardDepsoit = () => {
   }, [status, router]);
 
   const [isCopied, setIsCopied] = useState(false);
-  const walletAddress = "DHg4bryxzdcrowWL4msD8acoDtVXtFjMT8";
+  const walletAddress = "0xB77438455dEA06b61390ef0d0f74Ec5FC9aA54b6";
   // session?.user?.depositAddress;
 
   const copyToClipboard = async () => {
