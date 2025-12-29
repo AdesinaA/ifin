@@ -148,6 +148,26 @@ export default function InvestmentCharts() {
   };
 
   const [lineChartData, setLineChartData] = useState(InsightTabs[0].data);
+  const [activeInsightTab, setActiveInsightTab] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLineChartData((prev) => ({
+        ...prev,
+        datasets: [
+          {
+            ...prev.datasets[0],
+            data: prev.datasets[0].data.map(
+              (v) => v + Math.floor(Math.random() * 40 - 20)
+            ),
+          },
+        ],
+      }));
+    }, 5000);
+  
+    return () => clearInterval(interval);
+  }, []);
+  
 
   const doughnutData = {
     labels: ["IV 1", "IV 2", "IV 3"],
@@ -171,7 +191,6 @@ export default function InvestmentCharts() {
     },
   };
 
-  const [activeInsightTab, setActiveInsightTab] = useState(0);
   const activeInsightTabControler = (id) => {
     setActiveInsightTab(id);
     setLineChartData(InsightTabs[id].data);
