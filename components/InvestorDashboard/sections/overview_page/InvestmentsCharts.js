@@ -199,7 +199,8 @@ export default function InvestmentCharts() {
                          ? "bg-white text-black"
                          : "text-grey"
                      }`}
-                  // onClick={() => activeInsightTabControler(tab.id)}
+                     cursor-pointer
+                     onClick={() => activeInsightTabControler(tab.id)}                     
                 >
                   {tab.title}
                 </span>
