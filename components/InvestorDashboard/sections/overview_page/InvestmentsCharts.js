@@ -151,47 +151,23 @@ export default function InvestmentCharts() {
   const [activeInsightTab, setActiveInsightTab] = useState(0);
 
   useEffect(() => {
-    let tick = 0;
-  
     const interval = setInterval(() => {
-      setLineChartData((prev) => {
-        const baseData = prev.datasets[0].data;
-  
-        const newData = baseData.map((value, index) => {
-          // smooth wave motion
-          const wave =
-            Math.sin((tick + index) / 6) * 12;
-  
-          // tiny market noise
-          const noise =
-            Math.random() * 4 - 2;
-  
-          // gentle upward/downward drift
-          const drift =
-            Math.sin(tick / 40) * 2;
-  
-          const nextValue = value + wave + noise + drift;
-  
-          // clamp values (no crazy spikes)
-          return Math.max(100, Math.min(800, nextValue));
-        });
-  
-        tick++;
-  
-        return {
-          ...prev,
-          datasets: [
-            {
-              ...prev.datasets[0],
-              data: newData,
-            },
-          ],
-        };
-      });
-    }, 1200); // smoother update interval
+      setLineChartData((prev) => ({
+        ...prev,
+        datasets: [
+          {
+            ...prev.datasets[0],
+            data: prev.datasets[0].data.map(
+              (v) => v + Math.floor(Math.random() * 40 - 20)
+            ),
+          },
+        ],
+      }));
+    }, 5000);
   
     return () => clearInterval(interval);
   }, []);
+  
 
   const doughnutData = {
     labels: ["IV 1", "IV 2", "IV 3"],
