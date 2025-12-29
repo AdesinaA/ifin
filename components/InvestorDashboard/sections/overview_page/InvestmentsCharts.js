@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Line, Doughnut } from "react-chartjs-2";
+import { act, useState } from "react";
+import { Line } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,6 +15,7 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
+import { set } from "react-hook-form";
 
 ChartJS.register(
   CategoryScale,
@@ -28,23 +30,33 @@ ChartJS.register(
 );
 
 export default function InvestmentCharts() {
-  // -----------------------------
-  // DUMMY DATA (STABLE BASE)
-  // -----------------------------
   const InsightTabs = [
     {
       title: "1 week",
       id: 0,
       data: {
-        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        labels: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
         datasets: [
           {
             fill: true,
             label: "Performance",
-            data: [420, 460, 440, 480, 520, 500, 540],
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             borderColor: "rgb(20, 184, 166)",
-            backgroundColor: "rgba(20, 184, 166, 0.12)",
-            tension: 0.45,
+            backgroundColor: "rgba(20, 184, 166, 0.1)",
+            tension: 0.5,
           },
         ],
       },
@@ -53,15 +65,28 @@ export default function InvestmentCharts() {
       title: "6 month",
       id: 1,
       data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+        labels: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
         datasets: [
           {
             fill: true,
             label: "Performance",
-            data: [380, 420, 460, 510, 480, 560],
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             borderColor: "rgb(20, 184, 166)",
-            backgroundColor: "rgba(20, 184, 166, 0.12)",
-            tension: 0.45,
+            backgroundColor: "rgba(20, 184, 166, 0.1)",
+            tension: 0.5,
           },
         ],
       },
@@ -71,93 +96,59 @@ export default function InvestmentCharts() {
       id: 2,
       data: {
         labels: [
-          "Jan","Feb","Mar","Apr","May","Jun",
-          "Jul","Aug","Sep","Oct","Nov","Dec"
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
         ],
         datasets: [
           {
             fill: true,
             label: "Performance",
-            data: [300, 340, 360, 390, 420, 450, 480, 520, 500, 540, 560, 600],
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             borderColor: "rgb(20, 184, 166)",
-            backgroundColor: "rgba(20, 184, 166, 0.12)",
-            tension: 0.45,
+            backgroundColor: "rgba(20, 184, 166, 0.1)",
+            tension: 0.5,
           },
         ],
       },
     },
   ];
 
-  // -----------------------------
-  // STATE
-  // -----------------------------
-  const [lineChartData, setLineChartData] = useState(InsightTabs[0].data);
-  const [activeInsightTab, setActiveInsightTab] = useState(0);
-
-  // This drives the ocean-like motion
-  const [waveTick, setWaveTick] = useState(0);
-
-  // -----------------------------
-  // SAFE ANIMATION DRIVER
-  // -----------------------------
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setWaveTick((t) => t + 1);
-    }, 1200);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // -----------------------------
-  // DERIVED (ANIMATED) CHART DATA
-  // -----------------------------
-  const animatedChartData = {
-    ...lineChartData,
-    datasets: [
-      {
-        ...lineChartData.datasets[0],
-        data: lineChartData.datasets[0].data.map((value, index) => {
-          const wave = Math.sin((waveTick + index) / 6) * 12;
-          const noise = Math.random() * 1.5 - 0.75;
-          const drift = Math.sin(waveTick / 40) * 2;
-
-          return Math.max(100, Math.min(800, value + wave + noise + drift));
-        }),
-      },
-    ],
-  };
-
-  // -----------------------------
-  // CHART OPTIONS
-  // -----------------------------
   const lineChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { display: false },
+      legend: {
+        display: false,
+      },
     },
     scales: {
-      x: { grid: { display: false } },
+      x: {
+        grid: {
+          display: false,
+        },
+      },
       y: {
         min: 0,
         max: 800,
-        ticks: { stepSize: 200 },
+        ticks: {
+          stepSize: 200,
+        },
       },
     },
   };
 
-  // -----------------------------
-  // TAB HANDLER
-  // -----------------------------
-  const activeInsightTabControler = (id) => {
-    setActiveInsightTab(id);
-    setLineChartData(InsightTabs[id].data);
-  };
-  
+  const [lineChartData, setLineChartData] = useState(InsightTabs[0].data);
 
-  // -----------------------------
-  // DOUGHNUT (DUMMY)
-  // -----------------------------
   const doughnutData = {
     labels: ["IV 1", "IV 2", "IV 3"],
     datasets: [
@@ -173,31 +164,42 @@ export default function InvestmentCharts() {
   const doughnutOptions = {
     responsive: true,
     cutout: "75%",
-    plugins: { legend: { display: false } },
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
   };
 
-  // -----------------------------
-  // JSX
-  // -----------------------------
+  const [activeInsightTab, setActiveInsightTab] = useState(0);
+  const activeInsightTabControler = (id) => {
+    setActiveInsightTab(id);
+    setLineChartData(InsightTabs[id].data);
+  };
+
   return (
     <div className="mx-auto space-y-6">
-      <div className="flex flex-col gap-5 lg:flex-row justify-between bg-greyBg">
-        {/* LINE CHART */}
+      <div className="flex flex-col gap-5 lg:flex-row items-start md:gap-5 justify-between bg-greyBg">
+        {/* Line Chart */}
         <div className="lg:w-[65%] w-full space-y-1">
-          <div className="bg-white flex justify-between items-center py-2 px-5 h-[55px] rounded-t-md">
+          {/* header */}
+          <div
+            className="bg-white flex flex-col md:flex-row justify-between gap-3
+          md:items-center py-2 px-2 md:px-5 md:h-[55px] rounded-tl-md rounded-tr-md"
+          >
             <h2 className="text-sm">Investment Performance Insights</h2>
 
-            <div className="flex gap-2 bg-[#F0F2F5] p-1 rounded-md">
-              {InsightTabs.map((tab) => (
+            <div className="flex gap-3 justify-between md:justify-normal items-center bg-[#F0F2F5] p-1 rounded-md">
+              {InsightTabs?.map((tab, index) => (
                 <span
-                  key={tab.id}
-                  className={`text-[10px] px-4 py-2 rounded-md cursor-pointer transition
-                    ${
-                      activeInsightTab === tab.id
-                        ? "bg-white text-black"
-                        : "text-grey"
-                    }`}
-                  onClick={() => activeInsightTabControler(tab.id)}
+                  key={index}
+                  className={`text-[10px] py-2 px-5 md:p-2 rounded-md transition-all duration-100 cursor-not-allowed
+                     ${
+                       activeInsightTab === tab.id
+                         ? "bg-white text-black"
+                         : "text-grey"
+                     }`}
+                  // onClick={() => activeInsightTabControler(tab.id)}
                 >
                   {tab.title}
                 </span>
@@ -205,28 +207,52 @@ export default function InvestmentCharts() {
             </div>
           </div>
 
-          <div className="h-[350px] p-5 bg-white rounded-b-md">
-            <Line options={lineChartOptions} data={animatedChartData} />
+          {/* Graph */}
+          <div className="h-[300px] md:h-[350px] p-5 bg-white rounded-bl-md rounded-br-md w-full">
+            <Line options={lineChartOptions} data={lineChartData} />
           </div>
         </div>
 
-        {/* DOUGHNUT */}
-        <div className="lg:w-[35%] w-full space-y-1">
-          <div className="bg-white py-2 px-5 h-[55px] flex items-center rounded-t-md">
+        {/* Doughtnut */}
+        <div className="lg:w-[35%] w-full bg-greyBg space-y-1">
+          {/* header */}
+          <div className="bg-white rounded-tl-md rounded-tr-md py-2 px-5 h-[55px] flex items-center">
             <h2 className="text-sm">Portfolio Breakdown</h2>
           </div>
 
-          <div className="p-5 bg-white rounded-b-md h-[350px] relative">
-            <div className="flex items-center justify-center h-[250px] relative">
+          {/* Pie chart */}
+          <div className="p-5 bg-white rounded-bl-md rounded-br-md h-[350px] relative space-y-5">
+            <div className="flex items-center justify-center relative h-[250px]">
               <Doughnut options={doughnutOptions} data={doughnutData} />
-              <div className="absolute text-center">
+              <div className="absolute inset-0 flex items-center justify-center flex-col">
                 <div className="text-3xl font-bold">
-                  0.00 <span className="text-sm">USDT</span>
+                  0.00 <span className="text-sm uppercase">doge</span>
                 </div>
                 <div className="text-sm text-muted-foreground">
                   Invested Amount
                 </div>
               </div>
+            </div>
+
+            <div className="flex items-center justify-center gap-10 md:gap-20 2xl:gap-20 lg:gap-10">
+              {[
+                { label: "IV 1", value: "$ 0", color: "#F2F2F2" },
+                { label: "IV 2", value: "$ 0", color: "#F2F2F2" },
+                { label: "IV 3", value: "$ 0", color: "#F2F2F2" },
+              ].map((item) => (
+                <div key={item.label} className="flex items-center space-x-2">
+                  <div
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: item.color }}
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium">{item.label}</span>
+                    <span className="text-sm text-muted-foreground">
+                      {item.value}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
