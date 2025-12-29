@@ -53,7 +53,7 @@ export default function InvestmentCharts() {
           {
             fill: true,
             label: "Performance",
-            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            data: [420, 610, 280, 500, 720, 460, 590, 540, 680, 430, 390, 520],
             borderColor: "rgb(20, 184, 166)",
             backgroundColor: "rgba(20, 184, 166, 0.1)",
             tension: 0.5,
@@ -83,7 +83,7 @@ export default function InvestmentCharts() {
           {
             fill: true,
             label: "Performance",
-            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            data: [420, 610, 280, 500, 720, 460, 590, 540, 680, 430, 390, 520],
             borderColor: "rgb(20, 184, 166)",
             backgroundColor: "rgba(20, 184, 166, 0.1)",
             tension: 0.5,
@@ -113,7 +113,7 @@ export default function InvestmentCharts() {
           {
             fill: true,
             label: "Performance",
-            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            data: [420, 610, 280, 500, 720, 460, 590, 540, 680, 430, 390, 520],
             borderColor: "rgb(20, 184, 166)",
             backgroundColor: "rgba(20, 184, 166, 0.1)",
             tension: 0.5,
