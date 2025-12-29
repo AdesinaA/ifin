@@ -150,7 +150,7 @@ export default function InvestmentCharts() {
   const [lineChartData, setLineChartData] = useState(InsightTabs[0].data);
   const [activeInsightTab, setActiveInsightTab] = useState(0);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const interval = setInterval(() => {
       setLineChartData((prev) => ({
         ...prev,
@@ -164,6 +164,50 @@ export default function InvestmentCharts() {
         ],
       }));
     }, 5000);
+  
+    return () => clearInterval(interval);
+  }, []);
+  */
+  useEffect(() => {
+    let tick = 0;
+  
+    const interval = setInterval(() => {
+      setLineChartData((prev) => {
+        // 🛑 SAFETY GUARD (THIS FIXES THE CRASH)
+        if (
+          !prev ||
+          !prev.datasets ||
+          !prev.datasets.length ||
+          !Array.isArray(prev.datasets[0].data)
+        ) {
+          return prev;
+        }
+  
+        const baseData = prev.datasets[0].data;
+  
+        const newData = baseData.map((value, index) => {
+          const wave = Math.sin((tick + index) / 6) * 12;
+          const noise = Math.random() * 4 - 2;
+          const drift = Math.sin(tick / 40) * 2;
+  
+          const nextValue = value + wave + noise + drift;
+  
+          return Math.max(100, Math.min(800, nextValue));
+        });
+  
+        tick++;
+  
+        return {
+          ...prev,
+          datasets: [
+            {
+              ...prev.datasets[0],
+              data: newData,
+            },
+          ],
+        };
+      });
+    }, 1200);
   
     return () => clearInterval(interval);
   }, []);
