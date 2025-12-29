@@ -226,7 +226,7 @@ export default function InvestmentCharts() {
               <Doughnut options={doughnutOptions} data={doughnutData} />
               <div className="absolute inset-0 flex items-center justify-center flex-col">
                 <div className="text-3xl font-bold">
-                  0.00 <span className="text-sm uppercase">doge</span>
+                  0.00 <span className="text-sm uppercase">usdt</span>
                 </div>
                 <div className="text-sm text-muted-foreground">
                   Invested Amount
