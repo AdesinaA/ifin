@@ -149,10 +149,11 @@ export default function InvestmentCharts() {
   // -----------------------------
   // TAB HANDLER
   // -----------------------------
-  const activeInsightTabControler = (id: number) => {
+  const activeInsightTabControler = (id) => {
     setActiveInsightTab(id);
     setLineChartData(InsightTabs[id].data);
   };
+  
 
   // -----------------------------
   // DOUGHNUT (DUMMY)
