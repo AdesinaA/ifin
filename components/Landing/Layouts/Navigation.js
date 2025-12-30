@@ -26,9 +26,8 @@ const Navigation = ({ modalControl }) => {
   <Image
     src="/images/ifin.svg"
     alt="IfinOcean Logo"
-    width={40}
-    height={40}
-    className="lg:w-12 lg:h-12"
+    width={48}
+    height={36}
     priority
   />
   <h1 className="text-white font-semibold text-xl tracking-tight">
