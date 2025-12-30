@@ -23,17 +23,16 @@ const Navigation = ({ modalControl }) => {
       <div className="w-[90%] mx-auto flex justify-between items-center py-2">
         {/* NavBrand */}
         <Link href="/" className="flex items-center gap-2">
-  <Image
+  <img
     src="/images/ifin.svg"
     alt="IfinOcean Logo"
-    width={48}
-    height={36}
-    priority
+    className="w-12 h-auto"
   />
   <h1 className="text-white font-semibold text-xl tracking-tight">
     IfinOcean
   </h1>
 </Link>
+
 
         {/* Hamburger Menu for mobile */}
         <button
