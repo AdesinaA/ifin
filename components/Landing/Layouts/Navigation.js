@@ -1,6 +1,7 @@
 "use client";
 
 // Library imports
+import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -21,9 +22,19 @@ const Navigation = ({ modalControl }) => {
       {/* <Countdown /> */}
       <div className="w-[90%] mx-auto flex justify-between items-center py-2">
         {/* NavBrand */}
-        <div>
-          <h1 className="text-white font-medium text-xl">IfinOcean</h1>
-        </div>
+        <Link href="/" className="flex items-center gap-2">
+  <Image
+    src="/images/ifin.svg"
+    alt="IfinOcean Logo"
+    width={40}
+    height={40}
+    className="lg:w-12 lg:h-12"
+    priority
+  />
+  <h1 className="text-white font-semibold text-xl tracking-tight">
+    IfinOcean
+  </h1>
+</Link>
 
         {/* Hamburger Menu for mobile */}
         <button
