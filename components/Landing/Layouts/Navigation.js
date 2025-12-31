@@ -33,7 +33,6 @@ const Navigation = ({ modalControl }) => {
   </h1>
 </Link>
 
-
         {/* Hamburger Menu for mobile */}
         <button
           className="lg:hidden text-white"
