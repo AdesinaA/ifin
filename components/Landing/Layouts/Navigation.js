@@ -23,15 +23,36 @@ const Navigation = ({ modalControl }) => {
       <div className="w-[90%] mx-auto flex justify-between items-center py-2">
         {/* NavBrand */}
         <Link href="/" className="flex items-center gap-2">
-  <img
-    src="/images/ifin.svg"
-    alt="IfinOcean Logo"
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 160 120"
     className="w-12 h-auto"
-  />
+    aria-hidden="true"
+  >
+    <defs>
+      <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#FFF4B0" />
+        <stop offset="25%" stopColor="#F5C542" />
+        <stop offset="50%" stopColor="#E0A100" />
+        <stop offset="75%" stopColor="#F5C542" />
+        <stop offset="100%" stopColor="#FFF4B0" />
+      </linearGradient>
+    </defs>
+
+    <g transform="translate(10 0) scale(1.2)">
+      <path d="M10 85C15 83 18 78 22 72C26 66 30 62 35 65C40 68 42 75 45 82C48 89 50 92 55 92C60 92 65 88 70 85C75 82 80 85 85 88C90 91 95 90 100 87C105 84 108 85 112 87L112 100L10 100Z" fill="url(#goldGradient)" />
+      <path d="M20 90C25 88 28 82 33 72C38 62 42 55 48 58C54 61 58 70 62 80C66 90 70 95 78 92C86 89 92 82 98 85C104 88 108 92 115 90L115 100L20 100Z" fill="url(#goldGradient)" />
+      <path d="M30 92C35 90 40 85 45 75C50 65 54 52 60 48C66 44 70 50 74 60C78 70 82 82 88 88C94 94 100 96 106 94C112 92 116 94 120 95L120 100L30 100Z" fill="url(#goldGradient)" />
+    </g>
+  </svg>
+
   <h1 className="text-white font-semibold text-xl tracking-tight">
     IfinOcean
   </h1>
 </Link>
+
+
+
 
         {/* Hamburger Menu for mobile */}
         <button
