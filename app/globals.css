@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  font-family: var(--font-aeonik);
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.radio-button {
+  @apply appearance-none bg-white border border-gray-400 w-3 h-3 cursor-pointer;
+}
+
+.radio-button:checked {
+  @apply bg-backgroundPrimary outline outline-[#1D4ED8] outline-offset-1 w-2 h-2 cursor-pointer;
+}
+
+.scrollable-box {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.slick-list {
+  margin: 0 -10px;
+}
+.slick-slide > div {
+  padding: 0 10px;
+}
