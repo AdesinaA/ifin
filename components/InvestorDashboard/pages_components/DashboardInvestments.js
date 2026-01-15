@@ -71,27 +71,24 @@ const DashboardInvestments = ({ data }) => {
     }
   };
 
-  /* =======================
-     FETCH INVESTMENTS
-  ======================== */
+const fetchInvestmentData = async () => {
+  try {
+    const res = await axios.get("/api/dashboard/investments", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
-  const fetchInvestmentData = async () => {
-    try {
-      const res = await axios.get("/api/dashboard/investments", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
 
-      setInvestments({
-        active: res.data?.active || [],
-        completed: res.data?.completed || [],
-      });
-    } catch (err) {
-      console.error("Investment fetch error:", err);
-      setInvestments({ active: [], completed: [] });
-    } finally {
-      setLoading(false);
-    }
-  };
+    setInvestments({
+      active: res.data?.data?.active || [],
+      completed: res.data?.data?.completed || [],
+    });
+  } catch (err) {
+    console.error("Investment fetch error:", err);
+    setInvestments({ active: [], completed: [] });
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     fetchOverviewData();
@@ -167,6 +164,9 @@ const DashboardInvestments = ({ data }) => {
     return <GeneralLoader />;
   }
 
+  const isReady = !loading && !overviewLoading;
+
+
   return (
     <>
       <div className="space-y-8 pt-3 bg-greyBg">
@@ -237,7 +237,7 @@ const DashboardInvestments = ({ data }) => {
         </div>
 
         {/* TABLE */}
-        {paginatedInvestments.length === 0 ? (
+        {isReady && paginatedInvestments.length === 0 ? (
           <div className="h-[300px] flex items-center justify-center">
             <div className="text-center">
               <Image

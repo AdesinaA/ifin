@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+/* import { NextResponse } from "next/server";
 
 export async function GET(req) {
   const token = req.headers.get("Authorization");
@@ -32,4 +32,25 @@ export async function GET(req) {
   } catch (error) {
     console.log(error);
   }
+}
+*/
+
+import { NextResponse } from "next/server";
+
+export async function GET(req) {
+  const token = req.headers.get("Authorization");
+  const baseUrl = process.env.API_URL;
+
+  const response = await fetch(`${baseUrl}/api/investments`, {
+    headers: {
+      Authorization: token,
+    },
+  });
+
+  const data = await response.json();
+
+  return NextResponse.json({
+    status: response.status,
+    data,
+  });
 }
