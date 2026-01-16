@@ -32,8 +32,7 @@ export default function ReferralTree({ data }) {
         const response = await axios.get(`/api/dashboard/refferalTree`, {
           headers: {
             Authorization: `Bearer ${token}`,
-            ID: userId,
-          },
+          },          
         });
 
         const payload = response?.data?.data;
