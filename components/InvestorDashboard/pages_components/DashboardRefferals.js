@@ -161,9 +161,10 @@ const DashboardRefferals = ({ data }) => {
         </div>
 
         {/* TAB CONTENT */}
-        {tabs[activeTab]?.enabled && (
+        {tabs[activeTab] && tabs[activeTab].enabled === true && (
           <div className="pt-4">{tabs[activeTab].content}</div>
         )}
+          
       </section>
     </div>
   );
