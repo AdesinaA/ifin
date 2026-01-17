@@ -83,7 +83,7 @@ const SignUpComponent = () => {
     }
   };
 
-  const legalNote = (
+  /* const legalNote = (
     <p className="text-sm text-navyMuted text-center">
       By creating an account, you agree to IfinOcean’s{" "}
       <Link href="/terms" className="text-gold font-medium">
@@ -91,13 +91,13 @@ const SignUpComponent = () => {
       </Link>
       .
     </p>
-  );
+  ); */
 
   return (
     <AuthLayout
       title="Create your account"
       des="Start your investment journey with a secure account"
-      other={legalNote}
+     /* other={legalNote}*/
     >
       {ToastComponent}
 
