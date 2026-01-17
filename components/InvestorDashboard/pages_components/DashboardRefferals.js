@@ -96,10 +96,10 @@ const DashboardRefferals = ({ data }) => {
           des={directReferrals}
         />
 
-        <OverviewStatisticsCard
+       {/* <OverviewStatisticsCard
           heading="Network Size"
           des={networkSize}
-        />
+        /> */}
       </div>
 
       {/* INVITE CARD */}
