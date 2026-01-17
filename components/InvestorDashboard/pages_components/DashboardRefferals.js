@@ -15,34 +15,37 @@ import ReferralAnalytics from "../others/ReferralAnalytics";
 // Icons
 import { Copy } from "@phosphor-icons/react/dist/ssr";
 
-
-const countNetworkSize = (node) => {
-  if (!node || !node.children) return 0;
-
-  let count = node.children.length;
-
-  for (const child of node.children) {
-    count += countNetworkSize(child);
-  }
-
-  return count;
-};
 const DashboardRefferals = ({ data }) => {
   /* =======================
      TAB CONFIG
   ======================== */
+
+  const [directReferrals, setDirectReferrals] = useState(0);
+  const [networkSize, setNetworkSize] = useState(0);
+    
+  const [activeTab, setActiveTab] = useState(0);
+  const [isCopied, setIsCopied] = useState(false);
+
   const tabs = [
     {
       id: 0,
       name: "List",
       enabled: true,
-      content: <RefferalTableOption data={data} />,
+      content: ( <RefferalTableOption 
+        data={data}
+        onCount={setDirectReferrals} 
+        />
+      )
     },
     {
       id: 1,
       name: "Tree",
       enabled: true,
-      content: <ReferralTree data={data} />,
+      content: ( <ReferralTree 
+        data={data}
+        onCount={setNetworkSize} 
+        />
+      )
     },
     {
       id: 2,
@@ -58,21 +61,6 @@ const DashboardRefferals = ({ data }) => {
     },
   ];
 
-  const [activeTab, setActiveTab] = useState(0);
-  const [isCopied, setIsCopied] = useState(false);
-
-  const [directReferrals, setDirectReferrals] = useState(0);
-  const [networkSize, setNetworkSize] = useState(0);
-
-
-  useEffect(() => {
-    if (!data?.referralTree) return;
-  
-    const tree = data.referralTree;
-  
-    setDirectReferrals(tree.children?.length || 0);
-    setNetworkSize(countNetworkSize(tree));
-  }, [data?.referralTree]);
 
   const referralLink = data?.user?.referralLink;
 

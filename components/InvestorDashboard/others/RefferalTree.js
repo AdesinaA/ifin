@@ -7,7 +7,7 @@ import TreeSkeleton from "./TreeSkeleton";
 import { User, Copy, Check } from "@phosphor-icons/react/dist/ssr";
 import debounce from "@/hooks/Debounce";
 
-export default function ReferralTree({ data }) {
+export default function ReferralTree({ data, onNetworkSize }) {
   const [treeData, setTreeData] = useState(null);
   const [filteredData, setFilteredData] = useState(null);
   const [expandedNodes, setExpandedNodes] = useState({});
@@ -201,7 +201,12 @@ export default function ReferralTree({ data }) {
       node.children?.reduce((a, c) => a + countReferrals(c), 0)
     );
   };
-
+  
+  useEffect(() => {
+    if (treeData && onNetworkSize) {
+      onNetworkSize(countReferrals(treeData));
+    }
+  }, [treeData]);
   /* ============================================================================
      RENDER
   ============================================================================ */

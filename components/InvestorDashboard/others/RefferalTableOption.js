@@ -11,7 +11,7 @@ import GeneralLoader from "@/components/GenreralLoader";
 // Icons
 import { Copy } from "@phosphor-icons/react/dist/ssr";
 
-const RefferalTableOption = ({ data }) => {
+const RefferalTableOption = ({ data, onCount }) => {
   const [isTransactionLoading, setTransactionLoading] = useState(false);
   const [Refferal, setRefferal] = useState([]);
   const token = data?.accessToken;
@@ -30,8 +30,12 @@ const RefferalTableOption = ({ data }) => {
         }
       );
   
-      setRefferal(response?.data?.data?.referredUsers || []);
-    } catch (error) {
+      const referrals = response?.data?.data?.referredUsers || [];
+      setRefferal(referrals);
+
+      // 🔥 SEND COUNT TO DASHBOARD
+      if (onCount) onCount(referrals.length);
+          } catch (error) {
       console.error("Referral fetch failed:", error);
       setRefferal([]);
     } finally {
