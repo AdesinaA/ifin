@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Components
 import PagesHeader from "@/components/Landing/Layouts/PagesHeader";
@@ -15,6 +15,18 @@ import ReferralAnalytics from "../others/ReferralAnalytics";
 // Icons
 import { Copy } from "@phosphor-icons/react/dist/ssr";
 
+
+const countNetworkSize = (node) => {
+  if (!node || !node.children) return 0;
+
+  let count = node.children.length;
+
+  for (const child of node.children) {
+    count += countNetworkSize(child);
+  }
+
+  return count;
+};
 const DashboardRefferals = ({ data }) => {
   /* =======================
      TAB CONFIG
@@ -49,6 +61,19 @@ const DashboardRefferals = ({ data }) => {
   const [activeTab, setActiveTab] = useState(0);
   const [isCopied, setIsCopied] = useState(false);
 
+  const [directReferrals, setDirectReferrals] = useState(0);
+  const [networkSize, setNetworkSize] = useState(0);
+
+
+  useEffect(() => {
+    if (!data?.referralTree) return;
+  
+    const tree = data.referralTree;
+  
+    setDirectReferrals(tree.children?.length || 0);
+    setNetworkSize(countNetworkSize(tree));
+  }, [data?.referralTree]);
+
   const referralLink = data?.user?.referralLink;
 
   const copyToClipboard = async () => {
@@ -80,12 +105,12 @@ const DashboardRefferals = ({ data }) => {
 
         <OverviewStatisticsCard
           heading="Direct Referrals"
-          des={data?.user?.directReferralsCount || 0}
+          des={directReferrals}
         />
 
         <OverviewStatisticsCard
           heading="Network Size"
-          des={data?.user?.networkSize || 0}
+          des={networkSize}
         />
       </div>
 
